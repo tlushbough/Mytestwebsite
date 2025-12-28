@@ -1,0 +1,7 @@
+title: Helloworld
+description: A simple Jekyll site for GitHub Pages
+baseurl: ""
+url: "https://USERNAME.github.io"
+theme: minima
+plugins:
+  - jekyll-feed

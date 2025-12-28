@@ -1,0 +1,7 @@
+/* Minimal styles for Helloworld */
+html,body{height:100%;}
+body{font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0;padding:24px;background:#f7fafc;color:#1a202c}
+header h1{font-size:2.25rem;color:#2b6cb0;margin:0 0 8px}
+main{max-width:720px;text-align:center}
+p{margin:8px 0}
+footer{margin-top:28px;color:#718096;font-size:0.9rem}

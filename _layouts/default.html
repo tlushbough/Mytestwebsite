@@ -3,16 +3,37 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
   <title>{{ page.title }} - {{ site.title }}</title>
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 </head>
 <body>
-  <header>
-    <h1><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <div class="nav-links">
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/about/' | relative_url }}">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <h1 class="hero-title">{{ site.title }}</h1>
+      <p class="hero-sub">{{ site.description }}</p>
+      <a class="btn-cta" href="{{ '/' | relative_url }}#features">Explore the EPIC</a>
+    </div>
   </header>
-  <main>
+
+  <main class="container">
     {{ content }}
   </main>
-  <footer>© {{ site.title }}</footer>
+
+  <footer class="site-footer">
+    <div class="footer-inner">© {{ site.title }} — Built with Jekyll</div>
+  </footer>
+
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 </body>
 </html>

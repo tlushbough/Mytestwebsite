@@ -1,0 +1,34 @@
+/* EPIC theme styles (precompiled) */
+:root{
+  --bg:#071029;
+  --accent:#7dd3fc;
+  --accent-2:#5eead4;
+  --muted:#94a3b8;
+  --card:#0f1724;
+}
+html,body{height:100%;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial;margin:0;color:#e6eef6;background:linear-gradient(180deg,var(--bg),#041022);}
+
+.nav{background:transparent;padding:20px 24px;position:relative;z-index:30}
+.nav-inner{max-width:980px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.brand{color:var(--accent);font-weight:700;text-decoration:none;font-size:1.05rem}
+.nav-links a{color:var(--muted);margin-left:18px;text-decoration:none}
+
+.hero{padding:84px 24px 56px;text-align:center}
+.hero-inner{max-width:980px;margin:0 auto}
+.hero-title{font-size:3.25rem;margin:0;color:var(--accent);letter-spacing:-1px;text-shadow:0 6px 20px rgba(3,7,18,0.6)}
+.hero-sub{color:var(--muted);margin-top:12px;font-size:1.125rem}
+.btn-cta{display:inline-block;margin-top:20px;padding:12px 20px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#04202a;text-decoration:none;font-weight:700;box-shadow:0 8px 30px rgba(46,199,255,0.12)}
+
+.container{max-width:980px;margin:36px auto;padding:0 20px}
+
+.card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.04);padding:20px;border-radius:12px;margin-bottom:18px}
+
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:24px}
+.feature h3{margin:0 0 8px;color:var(--accent)}
+.feature p{margin:0;color:var(--muted)}
+
+.site-footer{padding:28px 24px;color:var(--muted);text-align:center;border-top:1px solid rgba(255,255,255,0.02)}
+
+@keyframes floatUp{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+.hero-inner, .card{animation:floatUp .7s ease both}

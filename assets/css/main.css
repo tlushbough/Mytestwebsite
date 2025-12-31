@@ -115,16 +115,16 @@ body > *{
   pointer-events:none;
   z-index:50;
   transform:scale(0.8) rotate(-15deg);
-  color:var(--accent);
+  color:#f7931a;
 }
 
 .bitcoin-easter-egg.revealed{
   opacity:1;
   transform:scale(1) rotate(0deg);
   text-shadow:
-    0 0 20px rgba(125,211,252,0.8),
-    0 0 40px rgba(94,234,212,0.6),
-    0 0 60px rgba(125,211,252,0.4);
+    0 0 20px rgba(247,147,26,0.8),
+    0 0 40px rgba(247,147,26,0.6),
+    0 0 60px rgba(255,165,0,0.4);
   animation:bitcoinPulse 2s ease-in-out infinite;
 }
 

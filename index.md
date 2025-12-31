@@ -5,8 +5,6 @@ title: Home
 
 ## Welcome to an EPIC Helloworld
 
-<div class="bitcoin-easter-egg" aria-hidden="true">₿</div>
-
 This is an upgraded, dramatic Jekyll site built for GitHub Pages — bold colors, motion, and an "EPIC" feel.
 
 ### Features

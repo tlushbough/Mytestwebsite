@@ -27,6 +27,39 @@ document.addEventListener('DOMContentLoaded', function(){
   // Start the animation loop
   updateSpotlight();
 
+  // Bitcoin Easter Egg Detection
+  const bitcoinEgg = document.querySelector('.bitcoin-easter-egg');
+  if(bitcoinEgg){
+    const revealDistance = 200; // pixels from spotlight center to reveal
+
+    function checkBitcoinProximity(){
+      const rect = bitcoinEgg.getBoundingClientRect();
+      const eggCenterX = rect.left + rect.width / 2;
+      const eggCenterY = rect.top + rect.height / 2;
+
+      // Calculate spotlight position in pixels
+      const spotX = (spotlightX / 100) * window.innerWidth;
+      const spotY = (spotlightY / 100) * window.innerHeight;
+
+      // Calculate distance between spotlight and bitcoin
+      const distance = Math.sqrt(
+        Math.pow(spotX - eggCenterX, 2) +
+        Math.pow(spotY - eggCenterY, 2)
+      );
+
+      // Reveal if spotlight is close enough
+      if(distance < revealDistance){
+        bitcoinEgg.classList.add('revealed');
+      } else {
+        bitcoinEgg.classList.remove('revealed');
+      }
+
+      requestAnimationFrame(checkBitcoinProximity);
+    }
+
+    checkBitcoinProximity();
+  }
+
   // Subtle parallax on hero section
   const hero = document.querySelector('.hero');
   if(hero){

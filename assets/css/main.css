@@ -104,6 +104,20 @@ body > *{
 @keyframes floatUp{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
 .hero-inner, .card{animation:floatUp .7s ease both}
 
+/* Easter Egg Hint */
+.easter-egg-hint{
+  text-align:center;
+  color:var(--muted);
+  font-size:0.95rem;
+  font-style:italic;
+  margin:16px 0 24px;
+  opacity:0.7;
+  transition:opacity 0.3s ease;
+}
+.easter-egg-hint:hover{
+  opacity:1;
+}
+
 /* Bitcoin Easter Egg - Hidden until spotlight reveals it */
 .bitcoin-easter-egg{
   position:fixed;

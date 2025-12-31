@@ -7,6 +7,8 @@ title: Home
 
 This is an upgraded, dramatic Jekyll site built for GitHub Pages — bold colors, motion, and an "EPIC" feel.
 
+<p class="easter-egg-hint">💡 Psst... move your spotlight around to discover a hidden treasure!</p>
+
 ### Features
 
 <section id="features" class="features">

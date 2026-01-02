@@ -75,8 +75,8 @@ document.addEventListener('DOMContentLoaded', function(){
   // Bitcoin Easter Egg Detection
   const bitcoinEgg = document.querySelector('.bitcoin-easter-egg');
   if(bitcoinEgg){
-    const revealDistance = 200; // pixels from spotlight center to reveal
-    let achievements = getAchievements();
+    const revealDistance = 350; // pixels from spotlight center to reveal - larger than Bitcoin
+    let sessionDiscovered = false; // Track session locally, not from storage
 
     function showAchievement(){
       const toast = document.getElementById('achievementToast');
@@ -91,11 +91,11 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function recordDiscovery(){
+      const achievements = getAchievements();
       achievements.bitcoinFinds++;
       if(!achievements.firstDiscovery){
         achievements.firstDiscovery = new Date().toISOString();
       }
-      achievements.sessionDiscovered = true;
       saveAchievements(achievements);
       updateStatsDisplay();
     }
@@ -119,7 +119,8 @@ document.addEventListener('DOMContentLoaded', function(){
       if(distance < revealDistance){
         if(!bitcoinEgg.classList.contains('revealed')){
           // First time revealing this session - show achievement and record!
-          if(!achievements.sessionDiscovered){
+          if(!sessionDiscovered){
+            sessionDiscovered = true;
             recordDiscovery();
             setTimeout(() => showAchievement(), 500); // Small delay for dramatic effect
           }

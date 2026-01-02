@@ -7,7 +7,16 @@ document.addEventListener('DOMContentLoaded', function(){
     const stored = localStorage.getItem(STORAGE_KEY);
     return stored ? JSON.parse(stored) : {
       bitcoinFinds: 0,
-      firstDiscovery: null
+      firstDiscovery: null,
+      satoshis: 0,
+      totalSatoshis: 0,
+      upgrades: {
+        spotlightBoost: 0,
+        bitcoinMagnet: 0,
+        speedMiner: 0,
+        goldenBitcoin: 0,
+        autoMiner: 0
+      }
     };
   }
 
@@ -19,8 +28,10 @@ document.addEventListener('DOMContentLoaded', function(){
     const achievements = getAchievements();
     const countEl = document.getElementById('bitcoinCount');
     const firstFindEl = document.getElementById('firstFind');
+    const satoshisEl = document.getElementById('satoshisCount');
 
     if(countEl) countEl.textContent = achievements.bitcoinFinds;
+    if(satoshisEl) satoshisEl.textContent = Math.floor(achievements.satoshis).toLocaleString();
     if(firstFindEl){
       if(achievements.firstDiscovery){
         const date = new Date(achievements.firstDiscovery);
@@ -44,6 +55,90 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // Initialize stats display
   updateStatsDisplay();
+
+  // Upgrade system
+  const UPGRADES = {
+    spotlightBoost: {
+      name: 'Spotlight Boost',
+      icon: '🔍',
+      baseCost: 100,
+      costMultiplier: 1.5,
+      description: 'Increases reveal radius',
+      effect: (level) => 350 + (level * 50) // Base 350px + 50px per level
+    },
+    bitcoinMagnet: {
+      name: 'Bitcoin Magnet',
+      icon: '🧲',
+      baseCost: 250,
+      costMultiplier: 2,
+      description: 'Bitcoin pulses when you\'re close',
+      effect: (level) => level > 0 // Enabled if level > 0
+    },
+    speedMiner: {
+      name: 'Speed Miner',
+      icon: '⚡',
+      baseCost: 500,
+      costMultiplier: 2.5,
+      description: 'Reduces respawn time',
+      effect: (level) => Math.max(1000, 4500 - (level * 500)) // Min 1s, -0.5s per level
+    },
+    goldenBitcoin: {
+      name: 'Golden Bitcoin',
+      icon: '🌟',
+      baseCost: 1000,
+      costMultiplier: 3,
+      description: '10% chance for 10x Satoshis',
+      effect: (level) => level * 0.1 // 10% per level
+    },
+    autoMiner: {
+      name: 'Auto Miner',
+      icon: '🤖',
+      baseCost: 2000,
+      costMultiplier: 4,
+      description: 'Earn Satoshis per second',
+      effect: (level) => level * 0.5 // 0.5 Satoshis/sec per level
+    }
+  };
+
+  function getUpgradeCost(upgradeKey){
+    const achievements = getAchievements();
+    const level = achievements.upgrades[upgradeKey];
+    const upgrade = UPGRADES[upgradeKey];
+    return Math.floor(upgrade.baseCost * Math.pow(upgrade.costMultiplier, level));
+  }
+
+  function purchaseUpgrade(upgradeKey){
+    const achievements = getAchievements();
+    const cost = getUpgradeCost(upgradeKey);
+
+    if(achievements.satoshis >= cost){
+      achievements.satoshis -= cost;
+      achievements.upgrades[upgradeKey]++;
+      saveAchievements(achievements);
+      updateStatsDisplay();
+      updateUpgradeButtons();
+      return true;
+    }
+    return false;
+  }
+
+  function updateUpgradeButtons(){
+    const achievements = getAchievements();
+
+    Object.keys(UPGRADES).forEach(key => {
+      const btn = document.getElementById(`upgrade-${key}`);
+      if(!btn) return;
+
+      const cost = getUpgradeCost(key);
+      const level = achievements.upgrades[key];
+      const canAfford = achievements.satoshis >= cost;
+
+      btn.querySelector('.upgrade-cost').textContent = cost.toLocaleString();
+      btn.querySelector('.upgrade-level').textContent = `Lv ${level}`;
+      btn.disabled = !canAfford;
+      btn.classList.toggle('affordable', canAfford);
+    });
+  }
   // Mouse-following gradient spotlight
   let spotlightX = 50;
   let spotlightY = 50;
@@ -74,8 +169,17 @@ document.addEventListener('DOMContentLoaded', function(){
   // Bitcoin Easter Egg Detection
   const bitcoinEgg = document.querySelector('.bitcoin-easter-egg');
   if(bitcoinEgg){
-    const revealDistance = 350; // pixels from spotlight center to reveal - larger than Bitcoin
     let sessionDiscovered = false; // Track session locally, not from storage
+
+    function getRevealDistance(){
+      const achievements = getAchievements();
+      return UPGRADES.spotlightBoost.effect(achievements.upgrades.spotlightBoost);
+    }
+
+    function getRespawnDelay(){
+      const achievements = getAchievements();
+      return UPGRADES.speedMiner.effect(achievements.upgrades.speedMiner);
+    }
 
     // Random position generator
     function getRandomPosition(){
@@ -138,14 +242,30 @@ document.addEventListener('DOMContentLoaded', function(){
       if(!achievements.firstDiscovery){
         achievements.firstDiscovery = new Date().toISOString();
       }
+
+      // Award Satoshis with golden bitcoin chance
+      let baseSatoshis = 10;
+      const goldenChance = UPGRADES.goldenBitcoin.effect(achievements.upgrades.goldenBitcoin);
+      const isGolden = Math.random() < goldenChance;
+
+      if(isGolden){
+        baseSatoshis *= 10;
+        bitcoinEgg.style.color = '#ffd700'; // Golden color
+      }
+
+      achievements.satoshis += baseSatoshis;
+      achievements.totalSatoshis += baseSatoshis;
       saveAchievements(achievements);
       updateStatsDisplay();
+      updateUpgradeButtons();
 
       // Move Bitcoin to new position and reset for this session
+      const respawnDelay = getRespawnDelay();
       setTimeout(() => {
         setBitcoinPosition();
+        bitcoinEgg.style.color = '#f7931a'; // Reset to orange
         sessionDiscovered = false; // Reset so it can be found again this session
-      }, 4500);
+      }, respawnDelay);
     }
 
     function checkBitcoinProximity(){
@@ -162,6 +282,8 @@ document.addEventListener('DOMContentLoaded', function(){
         Math.pow(spotX - eggCenterX, 2) +
         Math.pow(spotY - eggCenterY, 2)
       );
+
+      const revealDistance = getRevealDistance();
 
       // Reveal if spotlight is close enough
       if(distance < revealDistance){
@@ -183,6 +305,35 @@ document.addEventListener('DOMContentLoaded', function(){
 
     checkBitcoinProximity();
   }
+
+  // Auto Miner passive income system
+  setInterval(() => {
+    const achievements = getAchievements();
+    const passiveIncome = UPGRADES.autoMiner.effect(achievements.upgrades.autoMiner);
+
+    if(passiveIncome > 0){
+      achievements.satoshis += passiveIncome;
+      achievements.totalSatoshis += passiveIncome;
+      saveAchievements(achievements);
+      updateStatsDisplay();
+      updateUpgradeButtons();
+    }
+  }, 1000); // Run every second
+
+  // Initialize upgrade buttons and setup click handlers
+  Object.keys(UPGRADES).forEach(key => {
+    const btn = document.getElementById(`upgrade-${key}`);
+    if(btn){
+      btn.addEventListener('click', () => {
+        if(purchaseUpgrade(key)){
+          // Show purchase feedback
+          btn.classList.add('just-purchased');
+          setTimeout(() => btn.classList.remove('just-purchased'), 300);
+        }
+      });
+    }
+  });
+  updateUpgradeButtons();
 
   // Subtle parallax on hero section
   const hero = document.querySelector('.hero');

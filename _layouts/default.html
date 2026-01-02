@@ -31,6 +31,10 @@
   <div class="achievement-stats" id="achievementStats">
     <div class="stats-header">🏆 Achievements</div>
     <div class="stats-item">
+      <span class="stats-label">Satoshis:</span>
+      <span class="stats-value" id="satoshisCount">0</span>
+    </div>
+    <div class="stats-item">
       <span class="stats-label">Bitcoin Finds:</span>
       <span class="stats-value" id="bitcoinCount">0</span>
     </div>
@@ -39,6 +43,62 @@
       <span class="stats-value" id="firstFind">Never</span>
     </div>
     <div class="stats-reset" id="resetStats">Reset Stats</div>
+  </div>
+
+  <div class="upgrade-shop" id="upgradeShop">
+    <div class="shop-header">⚡ Upgrade Shop</div>
+    <div class="shop-items">
+      <button class="upgrade-btn" id="upgrade-spotlightBoost">
+        <div class="upgrade-icon">🔍</div>
+        <div class="upgrade-info">
+          <div class="upgrade-name">Spotlight Boost</div>
+          <div class="upgrade-desc">Increases reveal radius</div>
+          <div class="upgrade-footer">
+            <span class="upgrade-cost">100</span> ₿ • <span class="upgrade-level">Lv 0</span>
+          </div>
+        </div>
+      </button>
+      <button class="upgrade-btn" id="upgrade-bitcoinMagnet">
+        <div class="upgrade-icon">🧲</div>
+        <div class="upgrade-info">
+          <div class="upgrade-name">Bitcoin Magnet</div>
+          <div class="upgrade-desc">Bitcoin pulses when close</div>
+          <div class="upgrade-footer">
+            <span class="upgrade-cost">250</span> ₿ • <span class="upgrade-level">Lv 0</span>
+          </div>
+        </div>
+      </button>
+      <button class="upgrade-btn" id="upgrade-speedMiner">
+        <div class="upgrade-icon">⚡</div>
+        <div class="upgrade-info">
+          <div class="upgrade-name">Speed Miner</div>
+          <div class="upgrade-desc">Reduces respawn time</div>
+          <div class="upgrade-footer">
+            <span class="upgrade-cost">500</span> ₿ • <span class="upgrade-level">Lv 0</span>
+          </div>
+        </div>
+      </button>
+      <button class="upgrade-btn" id="upgrade-goldenBitcoin">
+        <div class="upgrade-icon">🌟</div>
+        <div class="upgrade-info">
+          <div class="upgrade-name">Golden Bitcoin</div>
+          <div class="upgrade-desc">10% chance for 10x ₿</div>
+          <div class="upgrade-footer">
+            <span class="upgrade-cost">1000</span> ₿ • <span class="upgrade-level">Lv 0</span>
+          </div>
+        </div>
+      </button>
+      <button class="upgrade-btn" id="upgrade-autoMiner">
+        <div class="upgrade-icon">🤖</div>
+        <div class="upgrade-info">
+          <div class="upgrade-name">Auto Miner</div>
+          <div class="upgrade-desc">Earn ₿/second passively</div>
+          <div class="upgrade-footer">
+            <span class="upgrade-cost">2000</span> ₿ • <span class="upgrade-level">Lv 0</span>
+          </div>
+        </div>
+      </button>
+    </div>
   </div>
 
   <header class="hero">

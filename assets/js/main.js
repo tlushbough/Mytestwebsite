@@ -168,6 +168,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // Bitcoin Easter Egg Detection
   const bitcoinEgg = document.querySelector('.bitcoin-easter-egg');
+  console.log('Bitcoin egg element:', bitcoinEgg); // Debug log
+
   if(bitcoinEgg){
     let sessionDiscovered = false; // Track session locally, not from storage
 

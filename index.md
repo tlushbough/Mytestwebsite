@@ -3,27 +3,25 @@ layout: default
 title: Home
 ---
 
-## Welcome to an EPIC Helloworld
+## Build Your Bitcoin Mining Empire
 
-This is an upgraded, dramatic Jekyll site built for GitHub Pages — bold colors, motion, and an "EPIC" feel.
+Hunt for hidden Bitcoin with your spotlight, earn Satoshis, and unlock powerful upgrades to build an unstoppable mining empire!
 
 <p class="easter-egg-hint">💡 Psst... move your spotlight around to discover a hidden treasure!</p>
 
-### Features
+### How to Play
 
 <section id="features" class="features">
 	<article class="feature card">
-		<h3>Fast</h3>
-		<p>Prebuilt static pages served directly from GitHub's CDN.</p>
+		<h3>🔦 Hunt</h3>
+		<p>Move your mouse to control the spotlight and reveal hidden Bitcoin symbols across the page.</p>
 	</article>
 	<article class="feature card">
-		<h3>Beautiful</h3>
-		<p>Gradient hero, typographic scale, and subtle motion for polish.</p>
+		<h3>💰 Earn</h3>
+		<p>Each Bitcoin you find awards Satoshis. Get lucky with Golden Bitcoin for 10x rewards!</p>
 	</article>
 	<article class="feature card">
-		<h3>Extendable</h3>
-		<p>Posts, pages, and collections — add content with Markdown and Jekyll.</p>
+		<h3>⚡ Upgrade</h3>
+		<p>Spend your Satoshis on powerful upgrades to find Bitcoin faster and earn passive income.</p>
 	</article>
 </section>
-
-Want me to add a blog index, About page, or a GitHub Actions deploy workflow? Tell me which and I'll scaffold it.

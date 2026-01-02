@@ -26,9 +26,9 @@ body::before{
   bottom:0;
   background:
     radial-gradient(
-      600px circle at var(--spotlight-x) var(--spotlight-y),
-      rgba(125,211,252,0.15),
-      rgba(94,234,212,0.08) 40%,
+      400px circle at var(--spotlight-x) var(--spotlight-y),
+      rgba(125,211,252,0.25),
+      rgba(94,234,212,0.15) 40%,
       transparent 80%
     ),
     linear-gradient(180deg,var(--bg),#041022);
@@ -124,7 +124,7 @@ body > *{
   top:35%;
   right:15%;
   font-size:4rem;
-  opacity:0.05;
+  opacity:0;
   transition:opacity 0.5s ease, transform 0.5s ease, text-shadow 0.3s ease;
   pointer-events:none;
   z-index:50;

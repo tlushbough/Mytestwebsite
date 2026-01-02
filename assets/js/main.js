@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function(){
       baseCost: 100,
       costMultiplier: 1.5,
       description: 'Increases reveal radius',
-      effect: (level) => 350 + (level * 50) // Base 350px + 50px per level
+      effect: (level) => 250 + (level * 50) // Base 250px + 50px per level (smaller base for difficulty)
     },
     bitcoinMagnet: {
       name: 'Bitcoin Magnet',

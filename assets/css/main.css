@@ -146,3 +146,54 @@ body > *{
   0%, 100%{transform:scale(1) rotate(0deg)}
   50%{transform:scale(1.1) rotate(5deg)}
 }
+
+/* Achievement Toast Notification */
+.achievement-toast{
+  position:fixed;
+  top:24px;
+  right:-400px;
+  width:320px;
+  background:linear-gradient(135deg, rgba(15,23,36,0.95), rgba(7,16,41,0.98));
+  border:2px solid var(--accent);
+  border-radius:12px;
+  padding:16px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(125,211,252,0.2);
+  z-index:9999;
+  transition:right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.achievement-toast.show{
+  right:24px;
+}
+
+.achievement-icon{
+  font-size:3rem;
+  animation:achievementBounce 0.6s ease;
+}
+
+.achievement-content{
+  flex:1;
+}
+
+.achievement-title{
+  font-weight:700;
+  color:var(--accent);
+  font-size:1.1rem;
+  margin-bottom:4px;
+  text-shadow:0 0 10px rgba(125,211,252,0.5);
+}
+
+.achievement-message{
+  color:var(--muted);
+  font-size:0.9rem;
+}
+
+@keyframes achievementBounce{
+  0%, 100%{transform:scale(1)}
+  25%{transform:scale(1.2) rotate(-10deg)}
+  50%{transform:scale(1.1) rotate(10deg)}
+  75%{transform:scale(1.15) rotate(-5deg)}
+}

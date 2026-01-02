@@ -31,6 +31,19 @@ document.addEventListener('DOMContentLoaded', function(){
   const bitcoinEgg = document.querySelector('.bitcoin-easter-egg');
   if(bitcoinEgg){
     const revealDistance = 200; // pixels from spotlight center to reveal
+    let achievementUnlocked = false;
+
+    function showAchievement(){
+      const toast = document.getElementById('achievementToast');
+      if(toast){
+        toast.classList.add('show');
+
+        // Hide after 4 seconds
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 4000);
+      }
+    }
 
     function checkBitcoinProximity(){
       const rect = bitcoinEgg.getBoundingClientRect();
@@ -49,6 +62,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
       // Reveal if spotlight is close enough
       if(distance < revealDistance){
+        if(!bitcoinEgg.classList.contains('revealed')){
+          // First time revealing - show achievement!
+          if(!achievementUnlocked){
+            achievementUnlocked = true;
+            setTimeout(() => showAchievement(), 500); // Small delay for dramatic effect
+          }
+        }
         bitcoinEgg.classList.add('revealed');
       } else {
         bitcoinEgg.classList.remove('revealed');

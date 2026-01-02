@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const stored = localStorage.getItem(STORAGE_KEY);
     return stored ? JSON.parse(stored) : {
       bitcoinFinds: 0,
-      firstDiscovery: null,
-      sessionDiscovered: false
+      firstDiscovery: null
     };
   }
 

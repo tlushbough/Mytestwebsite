@@ -142,8 +142,11 @@ document.addEventListener('DOMContentLoaded', function(){
       saveAchievements(achievements);
       updateStatsDisplay();
 
-      // Move Bitcoin to new position for next time
-      setTimeout(() => setBitcoinPosition(), 4500);
+      // Move Bitcoin to new position and reset for this session
+      setTimeout(() => {
+        setBitcoinPosition();
+        sessionDiscovered = false; // Reset so it can be found again this session
+      }, 4500);
     }
 
     function checkBitcoinProximity(){

@@ -78,6 +78,49 @@ document.addEventListener('DOMContentLoaded', function(){
     const revealDistance = 350; // pixels from spotlight center to reveal - larger than Bitcoin
     let sessionDiscovered = false; // Track session locally, not from storage
 
+    // Random position generator
+    function getRandomPosition(){
+      const minTop = 20;
+      const maxTop = 70;
+      const minLeft = 15;
+      const maxLeft = 75;
+
+      return {
+        top: Math.random() * (maxTop - minTop) + minTop,
+        left: Math.random() * (maxLeft - minLeft) + minLeft
+      };
+    }
+
+    // Set Bitcoin position based on find count
+    function setBitcoinPosition(){
+      const achievements = getAchievements();
+      const seed = achievements.bitcoinFinds; // Use find count as seed
+
+      // Generate position based on find count
+      const positions = [
+        {top: 35, right: 15}, // Initial position
+        {top: 60, left: 20},
+        {top: 25, left: 70},
+        {top: 50, left: 40},
+        {top: 70, left: 80},
+        {top: 20, left: 25}
+      ];
+
+      const pos = positions[seed % positions.length];
+
+      if(pos.right !== undefined){
+        bitcoinEgg.style.right = pos.right + '%';
+        bitcoinEgg.style.left = 'auto';
+      } else {
+        bitcoinEgg.style.left = pos.left + '%';
+        bitcoinEgg.style.right = 'auto';
+      }
+      bitcoinEgg.style.top = pos.top + '%';
+    }
+
+    // Initialize position
+    setBitcoinPosition();
+
     function showAchievement(){
       const toast = document.getElementById('achievementToast');
       if(toast){
@@ -98,6 +141,9 @@ document.addEventListener('DOMContentLoaded', function(){
       }
       saveAchievements(achievements);
       updateStatsDisplay();
+
+      // Move Bitcoin to new position for next time
+      setTimeout(() => setBitcoinPosition(), 4500);
     }
 
     function checkBitcoinProximity(){

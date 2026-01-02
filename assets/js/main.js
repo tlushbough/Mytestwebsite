@@ -1,5 +1,50 @@
 // EPIC interactive spotlight effect
 document.addEventListener('DOMContentLoaded', function(){
+  // Achievement tracking with localStorage
+  const STORAGE_KEY = 'epicHelloworldAchievements';
+
+  function getAchievements(){
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : {
+      bitcoinFinds: 0,
+      firstDiscovery: null,
+      sessionDiscovered: false
+    };
+  }
+
+  function saveAchievements(data){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+
+  function updateStatsDisplay(){
+    const achievements = getAchievements();
+    const countEl = document.getElementById('bitcoinCount');
+    const firstFindEl = document.getElementById('firstFind');
+
+    if(countEl) countEl.textContent = achievements.bitcoinFinds;
+    if(firstFindEl){
+      if(achievements.firstDiscovery){
+        const date = new Date(achievements.firstDiscovery);
+        firstFindEl.textContent = date.toLocaleDateString();
+      } else {
+        firstFindEl.textContent = 'Never';
+      }
+    }
+  }
+
+  // Reset stats button
+  const resetBtn = document.getElementById('resetStats');
+  if(resetBtn){
+    resetBtn.addEventListener('click', () => {
+      if(confirm('Reset all achievement stats?')){
+        localStorage.removeItem(STORAGE_KEY);
+        updateStatsDisplay();
+      }
+    });
+  }
+
+  // Initialize stats display
+  updateStatsDisplay();
   // Mouse-following gradient spotlight
   let spotlightX = 50;
   let spotlightY = 50;
@@ -31,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function(){
   const bitcoinEgg = document.querySelector('.bitcoin-easter-egg');
   if(bitcoinEgg){
     const revealDistance = 200; // pixels from spotlight center to reveal
-    let achievementUnlocked = false;
+    let achievements = getAchievements();
 
     function showAchievement(){
       const toast = document.getElementById('achievementToast');
@@ -43,6 +88,16 @@ document.addEventListener('DOMContentLoaded', function(){
           toast.classList.remove('show');
         }, 4000);
       }
+    }
+
+    function recordDiscovery(){
+      achievements.bitcoinFinds++;
+      if(!achievements.firstDiscovery){
+        achievements.firstDiscovery = new Date().toISOString();
+      }
+      achievements.sessionDiscovered = true;
+      saveAchievements(achievements);
+      updateStatsDisplay();
     }
 
     function checkBitcoinProximity(){
@@ -63,9 +118,9 @@ document.addEventListener('DOMContentLoaded', function(){
       // Reveal if spotlight is close enough
       if(distance < revealDistance){
         if(!bitcoinEgg.classList.contains('revealed')){
-          // First time revealing - show achievement!
-          if(!achievementUnlocked){
-            achievementUnlocked = true;
+          // First time revealing this session - show achievement and record!
+          if(!achievements.sessionDiscovered){
+            recordDiscovery();
             setTimeout(() => showAchievement(), 500); // Small delay for dramatic effect
           }
         }

@@ -124,13 +124,12 @@ body > *{
   top:35%;
   right:15%;
   font-size:4rem;
-  opacity:0.15;
+  opacity:0;
   transition:opacity 0.5s ease, transform 0.5s ease, text-shadow 0.3s ease;
   pointer-events:none;
   z-index:50;
   transform:scale(0.8) rotate(-15deg);
   color:#f7931a;
-  outline:2px dashed rgba(255,0,0,0.5);
 }
 
 .bitcoin-easter-egg.revealed{

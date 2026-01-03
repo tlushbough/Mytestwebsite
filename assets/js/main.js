@@ -202,42 +202,26 @@ document.addEventListener('DOMContentLoaded', function(){
       const seed = achievements.bitcoinFinds; // Use find count as seed
 
       // Generate position based on find count
+      // Avoid corners: left panel ends ~25%, right panel starts ~75%
+      // Avoid bottom: panels at bottom take ~30%
       const positions = [
-        {top: 35, right: 15}, // Initial position
-        {top: 60, left: 20},
-        {top: 25, left: 70},
-        {top: 50, left: 40},
-        {top: 70, left: 80},
-        {top: 20, left: 25}
+        {top: 15, left: 50}, // Center top
+        {top: 35, left: 65}, // Upper right (safe zone)
+        {top: 25, left: 35}, // Upper left-center
+        {top: 45, left: 50}, // Dead center
+        {top: 35, left: 70}, // Right side
+        {top: 20, left: 40}  // Upper middle-left
       ];
 
       const pos = positions[seed % positions.length];
 
-      if(pos.right !== undefined){
-        bitcoinEgg.style.right = pos.right + '%';
-        bitcoinEgg.style.left = 'auto';
-      } else {
-        bitcoinEgg.style.left = pos.left + '%';
-        bitcoinEgg.style.right = 'auto';
-      }
+      bitcoinEgg.style.left = pos.left + '%';
       bitcoinEgg.style.top = pos.top + '%';
+      bitcoinEgg.style.right = 'auto'; // Clear any previous right positioning
     }
 
     // Initialize position
     setBitcoinPosition();
-
-    // Debug: Log Bitcoin position
-    setTimeout(() => {
-      const rect = bitcoinEgg.getBoundingClientRect();
-      console.log('Bitcoin position:', {
-        top: bitcoinEgg.style.top,
-        left: bitcoinEgg.style.left,
-        right: bitcoinEgg.style.right,
-        pixelX: rect.left,
-        pixelY: rect.top,
-        revealDistance: getRevealDistance()
-      });
-    }, 100);
 
     function showAchievement(){
       const toast = document.getElementById('achievementToast');

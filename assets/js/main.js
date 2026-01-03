@@ -30,8 +30,11 @@ document.addEventListener('DOMContentLoaded', function(){
     const firstFindEl = document.getElementById('firstFind');
     const satoshisEl = document.getElementById('satoshisCount');
 
-    if(countEl) countEl.textContent = achievements.bitcoinFinds;
-    if(satoshisEl) satoshisEl.textContent = Math.floor(achievements.satoshis).toLocaleString();
+    if(countEl) countEl.textContent = achievements.bitcoinFinds || 0;
+    if(satoshisEl){
+      const satoshis = isNaN(achievements.satoshis) ? 0 : achievements.satoshis;
+      satoshisEl.textContent = Math.floor(satoshis).toLocaleString();
+    }
     if(firstFindEl){
       if(achievements.firstDiscovery){
         const date = new Date(achievements.firstDiscovery);

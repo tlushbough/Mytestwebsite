@@ -121,8 +121,6 @@ body > *{
 /* Bitcoin Easter Egg - Hidden until spotlight reveals it */
 .bitcoin-easter-egg{
   position:fixed;
-  top:35%;
-  right:15%;
   font-size:4rem;
   opacity:0;
   transition:opacity 0.5s ease, transform 0.5s ease, text-shadow 0.3s ease;

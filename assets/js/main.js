@@ -226,6 +226,19 @@ document.addEventListener('DOMContentLoaded', function(){
     // Initialize position
     setBitcoinPosition();
 
+    // Debug: Log Bitcoin position
+    setTimeout(() => {
+      const rect = bitcoinEgg.getBoundingClientRect();
+      console.log('Bitcoin position:', {
+        top: bitcoinEgg.style.top,
+        left: bitcoinEgg.style.left,
+        right: bitcoinEgg.style.right,
+        pixelX: rect.left,
+        pixelY: rect.top,
+        revealDistance: getRevealDistance()
+      });
+    }, 100);
+
     function showAchievement(){
       const toast = document.getElementById('achievementToast');
       if(toast){
